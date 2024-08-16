@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import {basicAuth} from 'hono/basic-auth'
 import {serveStatic} from 'hono/bun'
+import {logger} from 'hono/logger'
 
 const app = new Hono()
 
@@ -11,7 +12,7 @@ app.use(
     password: 'secret',
   })
 )
-app.use('/static/*', serveStatic({ root: './' }))
+app.use(logger())
 app.get('/', (c) => c.text('You can access: /static/hello.txt'))
 app.get('/a', serveStatic({path: './static/hello.html'}))
 app.notFound((c) => {
