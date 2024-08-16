@@ -2,9 +2,11 @@ import { Hono } from 'hono'
 import {basicAuth} from 'hono/basic-auth'
 import {serveStatic} from 'hono/bun'
 import {logger} from 'hono/logger'
+import jwt from './jwt'
 
 const app = new Hono()
 
+app.route('/jwt', jwt)
 app.use(
   '/admin/*',
   basicAuth({
